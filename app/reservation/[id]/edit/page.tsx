@@ -178,8 +178,8 @@ export default function EditReservation({ params }: EditReservationPageProps) {
       <div className="max-w-7xl mx-auto py-10 px-4 sm:px-6 lg:px-8">
         <div className="flex justify-center items-center h-64">
           <div className="text-center">
-            <div className="w-16 h-16 border-4 border-blue-600 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-            <p className="text-gray-600">Loading reservation...</p>
+            <div className="w-16 h-16 border-4 border-blue-600 dark:border-blue-500 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+            <p className="text-gray-600 dark:text-gray-400">Loading reservation...</p>
           </div>
         </div>
       </div>
@@ -189,11 +189,11 @@ export default function EditReservation({ params }: EditReservationPageProps) {
   if (error) {
     return (
       <div className="max-w-7xl mx-auto py-10 px-4 sm:px-6 lg:px-8">
-        <div className="bg-red-50 border border-red-200 rounded-md p-4 max-w-2xl mx-auto">
+        <div className="bg-red-50 dark:bg-red-900 border border-red-200 dark:border-red-800 rounded-md p-4 max-w-2xl mx-auto">
           <div className="flex">
             <div className="flex-shrink-0">
               <svg
-                className="h-5 w-5 text-red-400"
+                className="h-5 w-5 text-red-400 dark:text-red-500"
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 20 20"
                 fill="currentColor"
@@ -206,21 +206,24 @@ export default function EditReservation({ params }: EditReservationPageProps) {
               </svg>
             </div>
             <div className="ml-3">
-              <h3 className="text-sm font-medium text-red-800">Error</h3>
-              <div className="mt-2 text-sm text-red-700">
+              <h3 className="text-sm font-medium text-red-800 dark:text-red-200">Error</h3>
+              <div className="mt-2 text-sm text-red-700 dark:text-red-300">
                 <p>{error}</p>
               </div>
               <div className="mt-4">
                 {idValue && (
                   <Link
                     href={`/reservation/${idValue}`}
-                    className="text-sm font-medium text-red-600 hover:text-red-500"
+                    className="text-sm font-medium text-red-600 dark:text-red-400 hover:text-red-500 dark:hover:text-red-300"
                   >
                     Go back to reservation details
                   </Link>
                 )}
                 {!idValue && (
-                  <Link href="/" className="text-sm font-medium text-red-600 hover:text-red-500">
+                  <Link
+                    href="/"
+                    className="text-sm font-medium text-red-600 dark:text-red-400 hover:text-red-500 dark:hover:text-red-300"
+                  >
                     Go back to reservations
                   </Link>
                 )}
@@ -237,50 +240,62 @@ export default function EditReservation({ params }: EditReservationPageProps) {
       {idValue && (
         <Link
           href={`/reservation/${idValue}`}
-          className="flex items-center text-sm mb-6 text-blue-600 hover:text-blue-800 hover:underline"
+          className="flex items-center text-sm mb-6 text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 hover:underline"
         >
           <ArrowLeft className="mr-2 h-4 w-4" />
           Back to reservation details
         </Link>
       )}
 
-      <h1 className="text-3xl font-bold text-gray-900 mb-8">Edit Reservation</h1>
+      <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-8">Edit Reservation</h1>
 
       {toast.visible && (
         <div
           className={`fixed top-4 right-4 w-80 p-4 rounded-md shadow-lg ${
-            toast.type === "success" ? "bg-green-50 border border-green-200" : "bg-red-50 border border-red-200"
+            toast.type === "success"
+              ? "bg-green-50 dark:bg-green-900 border border-green-200 dark:border-green-800"
+              : "bg-red-50 dark:bg-red-900 border border-red-200 dark:border-red-800"
           }`}
         >
           <div className="flex justify-between">
-            <h3 className={`text-sm font-medium ${toast.type === "success" ? "text-green-800" : "text-red-800"}`}>
+            <h3
+              className={`text-sm font-medium ${
+                toast.type === "success" ? "text-green-800 dark:text-green-200" : "text-red-800 dark:text-red-200"
+              }`}
+            >
               {toast.title}
             </h3>
             <button
               onClick={() => setToast((prev) => ({ ...prev, visible: false }))}
-              className="text-gray-400 hover:text-gray-500"
+              className="text-gray-400 dark:text-gray-500 hover:text-gray-500 dark:hover:text-gray-400"
             >
               <span className="sr-only">Close</span>
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
-          <p className={`mt-1 text-sm ${toast.type === "success" ? "text-green-700" : "text-red-700"}`}>
+          <p
+            className={`mt-1 text-sm ${
+              toast.type === "success" ? "text-green-700 dark:text-green-300" : "text-red-700 dark:text-red-300"
+            }`}
+          >
             {toast.message}
           </p>
         </div>
       )}
 
-      <div className="max-w-2xl mx-auto bg-white shadow overflow-hidden sm:rounded-lg border border-gray-200">
-        <div className="px-4 py-5 sm:px-6 border-b border-gray-200">
-          <h3 className="text-lg leading-6 font-medium text-gray-900">Edit Reservation</h3>
-          <p className="mt-1 max-w-2xl text-sm text-gray-500">Update the reservation details below.</p>
+      <div className="max-w-2xl mx-auto bg-white dark:bg-gray-800 shadow overflow-hidden sm:rounded-lg border border-gray-200 dark:border-gray-700 transition-colors duration-200">
+        <div className="px-4 py-5 sm:px-6 border-b border-gray-200 dark:border-gray-700">
+          <h3 className="text-lg leading-6 font-medium text-gray-900 dark:text-white">Edit Reservation</h3>
+          <p className="mt-1 max-w-2xl text-sm text-gray-500 dark:text-gray-400">
+            Update the reservation details below.
+          </p>
         </div>
         <div className="px-4 py-5 sm:p-6">
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
             <input type="hidden" {...register("id")} />
 
             <div>
-              <label htmlFor="customerName" className="block text-sm font-medium text-gray-700">
+              <label htmlFor="customerName" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
                 Customer Name
               </label>
               <div className="mt-1">
@@ -289,14 +304,16 @@ export default function EditReservation({ params }: EditReservationPageProps) {
                   type="text"
                   placeholder="John Doe"
                   {...register("customerName")}
-                  className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md p-2 border"
+                  className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 dark:border-gray-600 rounded-md p-2 border bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
                 />
               </div>
-              {errors.customerName && <p className="mt-1 text-sm text-red-600">{errors.customerName.message}</p>}
+              {errors.customerName && (
+                <p className="mt-1 text-sm text-red-600 dark:text-red-400">{errors.customerName.message}</p>
+              )}
             </div>
 
             <div>
-              <label htmlFor="phone" className="block text-sm font-medium text-gray-700">
+              <label htmlFor="phone" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
                 Phone Number
               </label>
               <div className="mt-1">
@@ -305,15 +322,15 @@ export default function EditReservation({ params }: EditReservationPageProps) {
                   type="text"
                   placeholder="(123) 456-7890"
                   {...register("phone")}
-                  className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md p-2 border"
+                  className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 dark:border-gray-600 rounded-md p-2 border bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
                 />
               </div>
-              {errors.phone && <p className="mt-1 text-sm text-red-600">{errors.phone.message}</p>}
+              {errors.phone && <p className="mt-1 text-sm text-red-600 dark:text-red-400">{errors.phone.message}</p>}
             </div>
 
             <div className="grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-2">
               <div>
-                <label htmlFor="reservationDate" className="block text-sm font-medium text-gray-700">
+                <label htmlFor="reservationDate" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
                   Date
                 </label>
                 <div className="mt-1">
@@ -328,9 +345,9 @@ export default function EditReservation({ params }: EditReservationPageProps) {
                           onChange={(date) => field.onChange(date ? date.toISOString().split("T")[0] : "")}
                           dateFormat="yyyy-MM-dd"
                           minDate={new Date()}
-                          className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md p-2 pl-10 border"
+                          className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 dark:border-gray-600 rounded-md p-2 pl-10 border bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
                         />
-                        <div className="absolute left-3 top-2 text-gray-400">
+                        <div className="absolute left-3 top-2 text-gray-400 dark:text-gray-500">
                           <Calendar size={16} />
                         </div>
                       </div>
@@ -338,12 +355,12 @@ export default function EditReservation({ params }: EditReservationPageProps) {
                   />
                 </div>
                 {errors.reservationDate && (
-                  <p className="mt-1 text-sm text-red-600">{errors.reservationDate.message}</p>
+                  <p className="mt-1 text-sm text-red-600 dark:text-red-400">{errors.reservationDate.message}</p>
                 )}
               </div>
 
               <div>
-                <label htmlFor="reservationTime" className="block text-sm font-medium text-gray-700">
+                <label htmlFor="reservationTime" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
                   Time
                 </label>
                 <div className="mt-1">
@@ -371,9 +388,9 @@ export default function EditReservation({ params }: EditReservationPageProps) {
                             timeIntervals={30}
                             timeCaption="Time"
                             dateFormat="h:mm aa"
-                            className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md p-2 pl-10 border"
+                            className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 dark:border-gray-600 rounded-md p-2 pl-10 border bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
                           />
-                          <div className="absolute left-3 top-2 text-gray-400">
+                          <div className="absolute left-3 top-2 text-gray-400 dark:text-gray-500">
                             <Clock size={16} />
                           </div>
                         </div>
@@ -382,13 +399,13 @@ export default function EditReservation({ params }: EditReservationPageProps) {
                   />
                 </div>
                 {errors.reservationTime && (
-                  <p className="mt-1 text-sm text-red-600">{errors.reservationTime.message}</p>
+                  <p className="mt-1 text-sm text-red-600 dark:text-red-400">{errors.reservationTime.message}</p>
                 )}
               </div>
             </div>
 
             <div>
-              <label htmlFor="partySize" className="block text-sm font-medium text-gray-700">
+              <label htmlFor="partySize" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
                 Party Size
               </label>
               <div className="mt-1">
@@ -397,15 +414,17 @@ export default function EditReservation({ params }: EditReservationPageProps) {
                   type="number"
                   min={1}
                   {...register("partySize")}
-                  className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md p-2 border"
+                  className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 dark:border-gray-600 rounded-md p-2 border bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
                 />
               </div>
-              <p className="mt-1 text-sm text-gray-500">Number of people in the reservation</p>
-              {errors.partySize && <p className="mt-1 text-sm text-red-600">{errors.partySize.message}</p>}
+              <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">Number of people in the reservation</p>
+              {errors.partySize && (
+                <p className="mt-1 text-sm text-red-600 dark:text-red-400">{errors.partySize.message}</p>
+              )}
             </div>
 
             <div>
-              <label htmlFor="specialRequests" className="block text-sm font-medium text-gray-700">
+              <label htmlFor="specialRequests" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
                 Special Requests
               </label>
               <div className="mt-1">
@@ -414,18 +433,22 @@ export default function EditReservation({ params }: EditReservationPageProps) {
                   rows={3}
                   placeholder="Any dietary restrictions, seating preferences, or special occasions?"
                   {...register("specialRequests")}
-                  className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md p-2 border"
+                  className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 dark:border-gray-600 rounded-md p-2 border bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
                 />
               </div>
-              <p className="mt-1 text-sm text-gray-500">Optional: Add any special requests for your reservation</p>
-              {errors.specialRequests && <p className="mt-1 text-sm text-red-600">{errors.specialRequests.message}</p>}
+              <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
+                Optional: Add any special requests for your reservation
+              </p>
+              {errors.specialRequests && (
+                <p className="mt-1 text-sm text-red-600 dark:text-red-400">{errors.specialRequests.message}</p>
+              )}
             </div>
 
             <div className="flex justify-end space-x-3">
               {idValue && (
                 <Link
                   href={`/reservation/${idValue}`}
-                  className="inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                  className="inline-flex items-center px-4 py-2 border border-gray-300 dark:border-gray-600 shadow-sm text-sm font-medium rounded-md text-gray-700 dark:text-gray-200 bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 dark:focus:ring-offset-gray-900 transition-colors duration-200"
                 >
                   Cancel
                 </Link>
@@ -433,7 +456,7 @@ export default function EditReservation({ params }: EditReservationPageProps) {
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed"
+                className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 dark:focus:ring-offset-gray-900 disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-200"
               >
                 {isSubmitting ? "Saving..." : "Save Changes"}
               </button>

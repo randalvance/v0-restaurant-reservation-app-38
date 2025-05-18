@@ -18,9 +18,25 @@
   --radius: 0.5rem;
 }
 
+.dark {
+  --foreground-rgb: 255, 255, 255;
+  --background-start-rgb: 17, 24, 39;
+  --background-end-rgb: 17, 24, 39;
+  --primary: 59, 130, 246;
+  --primary-foreground: 255, 255, 255;
+  --destructive: 248, 113, 113;
+  --destructive-foreground: 255, 255, 255;
+  --muted: 31, 41, 55;
+  --muted-foreground: 156, 163, 175;
+  --border: 55, 65, 81;
+  --input: 55, 65, 81;
+  --ring: 59, 130, 246;
+}
+
 body {
   color: rgb(var(--foreground-rgb));
   background: rgb(var(--background-start-rgb));
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 /* Custom scrollbar */
@@ -125,9 +141,29 @@ select:focus {
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
 }
 
+.dark .react-datepicker {
+  background-color: rgb(31, 41, 55);
+  border-color: rgb(55, 65, 81);
+  color: rgb(229, 231, 235);
+}
+
 .react-datepicker__header {
   background-color: rgb(var(--muted));
   border-bottom: 1px solid rgb(var(--border));
+}
+
+.dark .react-datepicker__header {
+  background-color: rgb(31, 41, 55);
+  border-color: rgb(55, 65, 81);
+}
+
+.dark .react-datepicker__current-month,
+.dark .react-datepicker__day-name {
+  color: rgb(229, 231, 235);
+}
+
+.dark .react-datepicker__day {
+  color: rgb(229, 231, 235);
 }
 
 .react-datepicker__day--selected,
@@ -142,6 +178,11 @@ select:focus {
 .react-datepicker__time-list-item:hover:not(.react-datepicker__time-list-item--selected) {
   background-color: rgba(var(--primary), 0.1) !important;
   border-radius: 0.25rem;
+}
+
+.dark .react-datepicker__day:hover,
+.dark .react-datepicker__time-list-item:hover:not(.react-datepicker__time-list-item--selected) {
+  background-color: rgba(var(--primary), 0.3) !important;
 }
 
 .react-datepicker__day--disabled {
@@ -163,8 +204,20 @@ select:focus {
   border-left-color: rgb(var(--border));
 }
 
+.dark .react-datepicker__time-container {
+  border-left-color: rgb(55, 65, 81);
+}
+
 .react-datepicker__time-container .react-datepicker__time {
   background: white;
+}
+
+.dark .react-datepicker__time-container .react-datepicker__time {
+  background: rgb(31, 41, 55);
+}
+
+.dark .react-datepicker__time-container .react-datepicker__time-box {
+  background: rgb(31, 41, 55);
 }
 
 .react-datepicker__time-container
@@ -175,6 +228,10 @@ select:focus {
   padding: 0.5rem;
   height: auto;
   line-height: 1.5;
+}
+
+.dark .react-datepicker__time-list-item {
+  color: rgb(229, 231, 235);
 }
 
 .react-datepicker__triangle {

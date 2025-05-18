@@ -3,6 +3,8 @@ import "./globals.css"
 import type { Metadata } from "next"
 import { Inter } from "next/font/google"
 import Link from "next/link"
+import { ThemeProvider } from "@/contexts/theme-context"
+import { ThemeToggle } from "@/components/theme-toggle"
 
 const inter = Inter({ subsets: ["latin"] })
 
@@ -14,29 +16,38 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
-      <body className={inter.className}>
-        <div className="min-h-screen bg-white">
-          <header className="bg-white shadow-sm border-b border-gray-200">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-              <div className="flex justify-between h-16 items-center">
-                <div className="flex">
-                  <Link href="/" className="flex-shrink-0 flex items-center">
-                    <span className="text-blue-600 font-bold text-xl">Restaurant Reservations</span>
-                  </Link>
+    <html lang="en" suppressHydrationWarning>
+      <body className={`${inter.className} dark:bg-gray-900 dark:text-gray-100`}>
+        <ThemeProvider>
+          <div className="min-h-screen bg-white dark:bg-gray-900 transition-colors duration-200">
+            <header className="bg-white dark:bg-gray-800 shadow-sm border-b border-gray-200 dark:border-gray-700 transition-colors duration-200">
+              <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div className="flex justify-between h-16 items-center">
+                  <div className="flex">
+                    <Link href="/" className="flex-shrink-0 flex items-center">
+                      <span className="text-blue-600 dark:text-blue-400 font-bold text-xl">
+                        Restaurant Reservations
+                      </span>
+                    </Link>
+                  </div>
+                  <div>
+                    <ThemeToggle />
+                  </div>
                 </div>
               </div>
-            </div>
-          </header>
-          <main className="bg-gray-50 min-h-[calc(100vh-8rem)]">{children}</main>
-          <footer className="bg-white border-t border-gray-200 py-6">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-              <p className="text-center text-sm text-gray-500">
-                &copy; {new Date().getFullYear()} Restaurant Reservation System. All rights reserved.
-              </p>
-            </div>
-          </footer>
-        </div>
+            </header>
+            <main className="bg-gray-50 dark:bg-gray-900 min-h-[calc(100vh-8rem)] transition-colors duration-200">
+              {children}
+            </main>
+            <footer className="bg-white dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700 py-6 transition-colors duration-200">
+              <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <p className="text-center text-sm text-gray-500 dark:text-gray-400">
+                  &copy; {new Date().getFullYear()} Restaurant Reservation System. All rights reserved.
+                </p>
+              </div>
+            </footer>
+          </div>
+        </ThemeProvider>
       </body>
     </html>
   )
