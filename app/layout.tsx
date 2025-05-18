@@ -1,12 +1,9 @@
 import type React from "react"
 import "./globals.css"
 import type { Metadata } from "next"
-import { Inter } from "next/font/google"
 import Link from "next/link"
 import { ThemeProvider } from "@/contexts/theme-context"
 import { ThemeToggle } from "@/components/theme-toggle"
-
-const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
   title: "Restaurant Reservation System",
@@ -17,7 +14,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${inter.className} dark:bg-gray-900 dark:text-gray-100`}>
+      <body className="font-sans dark:bg-gray-900 dark:text-gray-100">
         <ThemeProvider>
           <div className="min-h-screen bg-white dark:bg-gray-900 transition-colors duration-200">
             <header className="bg-white dark:bg-gray-800 shadow-sm border-b border-gray-200 dark:border-gray-700 transition-colors duration-200">
