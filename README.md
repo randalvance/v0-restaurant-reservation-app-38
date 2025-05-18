@@ -8,6 +8,7 @@ A modern web application for managing restaurant reservations.
 - Track customer information, party size, and special requests
 - Responsive design that works on desktop and mobile devices
 - Dark mode support
+- Microsoft Authentication (Azure AD)
 
 ## Getting Started
 
@@ -15,6 +16,7 @@ A modern web application for managing restaurant reservations.
 
 - Node.js 18+ and npm
 - PostgreSQL database
+- Microsoft Azure AD tenant (for authentication)
 
 ### Installation
 
@@ -28,6 +30,17 @@ A modern web application for managing restaurant reservations.
    cp .env.example .env
    \`\`\`
 4. Update the `DATABASE_URL` in your `.env` file with your PostgreSQL connection string.
+5. Set up authentication by copying `.env.local.example` to `.env.local` and updating the values:
+   \`\`\`bash
+   cp .env.local.example .env.local
+   \`\`\`
+
+### Authentication Setup
+
+1. Register a new application in the [Azure Portal](https://portal.azure.com/#blade/Microsoft_AAD_RegisteredApps/ApplicationsListBlade)
+2. Set the redirect URI to `http://localhost:3000` (or your deployment URL)
+3. Note the Application (client) ID and Directory (tenant) ID
+4. Update your `.env.local` file with these values
 
 ### Database Setup
 
