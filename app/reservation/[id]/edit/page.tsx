@@ -5,10 +5,13 @@ import { useRouter } from "next/navigation"
 import Link from "next/link"
 import { updateReservation } from "@/actions/reservation-actions"
 import { z } from "zod"
-import { useForm } from "react-hook-form"
+import { useForm, Controller } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { ArrowLeft } from "lucide-react"
+import { ArrowLeft, Calendar, Clock } from "lucide-react"
 import type { PageProps } from "next"
+import DatePicker from "react-datepicker"
+import "react-datepicker/dist/react-datepicker.css"
+import { format, parse } from "date-fns"
 
 interface EditReservationPageProps extends PageProps {
   params: Promise<{
@@ -56,6 +59,7 @@ export default function EditReservation({ params }: EditReservationPageProps) {
     handleSubmit,
     formState: { errors },
     reset,
+    control,
   } = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -313,11 +317,24 @@ export default function EditReservation({ params }: EditReservationPageProps) {
                   Date
                 </label>
                 <div className="mt-1">
-                  <input
-                    id="reservationDate"
-                    type="date"
-                    {...register("reservationDate")}
-                    className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md p-2 border"
+                  <Controller
+                    control={control}
+                    name="reservationDate"
+                    render={({ field }) => (
+                      <div className="relative">
+                        <DatePicker
+                          id="reservationDate"
+                          selected={field.value ? new Date(field.value) : null}
+                          onChange={(date) => field.onChange(date ? date.toISOString().split("T")[0] : "")}
+                          dateFormat="yyyy-MM-dd"
+                          minDate={new Date()}
+                          className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md p-2 pl-10 border"
+                        />
+                        <div className="absolute left-3 top-2 text-gray-400">
+                          <Calendar size={16} />
+                        </div>
+                      </div>
+                    )}
                   />
                 </div>
                 {errors.reservationDate && (
@@ -330,11 +347,38 @@ export default function EditReservation({ params }: EditReservationPageProps) {
                   Time
                 </label>
                 <div className="mt-1">
-                  <input
-                    id="reservationTime"
-                    type="time"
-                    {...register("reservationTime")}
-                    className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md p-2 border"
+                  <Controller
+                    control={control}
+                    name="reservationTime"
+                    render={({ field }) => {
+                      // Convert HH:MM string to Date for the time picker
+                      const timeAsDate = field.value
+                        ? parse(field.value, "HH:mm", new Date())
+                        : parse("19:00", "HH:mm", new Date())
+
+                      return (
+                        <div className="relative">
+                          <DatePicker
+                            selected={timeAsDate}
+                            onChange={(date) => {
+                              if (date) {
+                                const formattedTime = format(date, "HH:mm")
+                                field.onChange(formattedTime)
+                              }
+                            }}
+                            showTimeSelect
+                            showTimeSelectOnly
+                            timeIntervals={30}
+                            timeCaption="Time"
+                            dateFormat="h:mm aa"
+                            className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md p-2 pl-10 border"
+                          />
+                          <div className="absolute left-3 top-2 text-gray-400">
+                            <Clock size={16} />
+                          </div>
+                        </div>
+                      )
+                    }}
                   />
                 </div>
                 {errors.reservationTime && (

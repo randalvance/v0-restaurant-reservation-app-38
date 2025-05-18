@@ -78,6 +78,7 @@
     "pg-native": "latest",
     "postgres": "latest",
     "react": "^19",
+    "react-datepicker": "latest",
     "react-day-picker": "8.10.1",
     "react-dom": "^19",
     "react-hook-form": "latest",
